@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import axios from 'axios'
-import *as yup from 'yup'
-import formSchema from '../formSchema'
 import SignupForm from './SignupForm'
 
 const Wrapper = styled.div`
@@ -74,7 +71,7 @@ const Home = () => {
       console.log(history);
       history.push('/login')
     }
-    
+
 return (
     <Wrapper>
         <Title>Secret Recipes Cookbook</Title>

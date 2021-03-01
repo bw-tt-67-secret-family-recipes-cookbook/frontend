@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-function SignupForm(props) {
+function Login(props){
     const {values, submit, change, disabled, errors} = props
 
     const onSubmit = evt => {
@@ -9,23 +9,26 @@ function SignupForm(props) {
         submit()
     }
     const onChange = evt => {
-        const { name, value } = evt.target
-        change(name, value) 
+    const { name, value } = evt.target
+    change(name, value)
     }
+
     const history = useHistory()
 
-    const routeToLogin = () => {
-      console.log(history);
-      history.push('/login')
+    const routeToRecipe = () => {
+        console.log(history);
+        history.push('/recipe')
     }
     const routeToHome = () => {
-      console.log(history);
-      history.push('/')
-    }
+        console.log(history);
+        history.push('/')
+      }
+
     return(
         <form onSubmit={onSubmit}>
-            <div>
-            <h1>Join us!</h1>
+        <div>
+            <h1>Login</h1>
+            <h2>Welcome Back!</h2>
 
             <div>{errors.username}</div>
             <div>{errors.password}</div>
@@ -38,7 +41,7 @@ function SignupForm(props) {
                     type='text'
                 />
             </label>
-
+            
             <label>Password
                 <input
                     value={values.password}
@@ -48,11 +51,16 @@ function SignupForm(props) {
                 />
             </label>
 
-            <button onClick={routeToLogin}>SignUp</button>
-            <button onClick={routeToHome}>Home</button>
+            <button onClick=
+            {routeToRecipe}>Login</button>
+            <button onClick=
+            {routeToHome}>Home</button>
 
-            </div>
-        </form>)
+        </div>    
+        </form>
+        
+    )
+
 }
 
-export default SignupForm
+export default Login

@@ -5,21 +5,19 @@ import SignupForm from './components/SignupForm'
 import axios from 'axios'
 import *as yup from 'yup'
 import formSchema from './formSchema'
+import Login from './components/Login'
+import Recipe from './components/Recipe'
 
 const initialFormValues = {
     username: '',
     password: '',
-    passwordConfirm: '',
-    accept: false 
   }
   const initialFormErrors = {
     username: '',
     password: '',
-    passwordConfirm: '',
-    accept: false
   }
   const initialRecipes = []
-  const initialDisabled = true
+  const initialDisabled = false
 
 const App = () => {
 
@@ -73,8 +71,6 @@ const App = () => {
       const newRecipe = {
         username: formValues.username.trim(),
         password: formValues.password.trim(),
-        passwordConfirm: formValues.passwordConfirm.trim(),
-        terms: ['accept'].filter(term => formValues[term])
       }
       postRecipes(newRecipe)
     }
@@ -100,10 +96,29 @@ const App = () => {
                     change={inputChange}
                     />
                 </Route>    
+                <Route path='/login'>
+                    <Login 
+                    values={formValues}
+                    errors={formErrors}
+                    disabled={disabled}
+                    submit={formSubmit}
+                    change={inputChange}
+                    />
+                </Route>    
+                <Route exact path='/recipe'>
+                    <Recipe />
+                </Route>
                 <Route exact path='/'>
                     <Home />
                 </Route>
             </Switch>
+            {
+            recipes.map(recipe => {
+                return (
+                <Recipe key={recipe.id} details={recipe} />
+                )
+            })
+            }
         </div>
     )
 }

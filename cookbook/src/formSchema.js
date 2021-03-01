@@ -9,11 +9,7 @@ const formSchema = yup.object().shape({
         .min(3, 'Username must be at least 3 characters long'),
     password: yup
         .string()
-        .required('Password is required'),
-    passwordConfirm: yup
-        .string()
-        .oneOf([yup.ref('password'), null], 'Passwords must match'),
-    terms: yup.boolean()
+        .required('Password is required')
 })
 
 export default formSchema
