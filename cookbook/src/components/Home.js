@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import SignupForm from './SignupForm'
+import PrivateRoute from './../helpers/PrivateRoute'
 
 const Wrapper = styled.div`
     width: 100%;
