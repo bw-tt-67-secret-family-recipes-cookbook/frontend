@@ -22,7 +22,7 @@ function SignupForm(props) {
             .then((response) =>{
                 localStorage.setItem("token", JSON.stringify(response.data.payload))
                 console.log(response)
-                window.location.href("/login")
+                window.location.href ="/login" 
 
             })
             .catch(error => {
