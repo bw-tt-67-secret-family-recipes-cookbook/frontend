@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axiosWithAuth from "./../helpers/axiosWithAuth"
 import { useParams } from "react-router-dom";
-
+import EditMenu from "./EditMenu";
 
 
 
@@ -24,6 +24,11 @@ function Recipe() {
     const [ recipes, setRecipes ] = useState(initialValue)
 
 
+    
+
+
+
+
 
     const getRecipes = () => {
         axiosWithAuth()
@@ -35,9 +40,9 @@ function Recipe() {
           .catch((err) => {
             console.log(err)
           })
-      }
+    }
       
-      const postRecipes = newRecipe => {
+    const postRecipes = newRecipe => {
         axiosWithAuth()
           .post(`/api/users/${id}/recipes`, newRecipe)
           .then((res) => {
@@ -48,11 +53,12 @@ function Recipe() {
             console.log(err)
           })
           postRecipes(recipes)
-      }
+    }
 
-      useEffect(() => {
+
+    useEffect(() => {
         getRecipes()
-      }, [])
+    }, [])
 
 
 
@@ -61,14 +67,15 @@ function Recipe() {
     return(
         <div>
         <h1>Recipes</h1>
+        <ul>
         {
             recipes.map(recipe => {
-                return (
-                <div className="recipe">{recipe}</div>
-                )
+                <li className="recipe">{recipe}</li>
+            
             })
         }
-    
+        </ul>
+         <EditMenu/>
     
         </div>)
 }
