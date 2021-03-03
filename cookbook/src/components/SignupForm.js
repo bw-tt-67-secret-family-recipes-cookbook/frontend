@@ -20,7 +20,6 @@ function SignupForm(props) {
         axios
             .post('https://tt67recipes.herokuapp.com/api/users/login', values)
             .then((response) =>{
-                localStorage.setItem("token", JSON.stringify(response.data.payload))
                 console.log(response)
                 window.location.href ="/login" 
 

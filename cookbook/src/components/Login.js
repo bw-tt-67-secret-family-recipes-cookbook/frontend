@@ -20,7 +20,9 @@ function Login(props){
         axios
             .post('https://tt67recipes.herokuapp.com/api/users/login', values)
             .then((response) =>{
-                console.log(response)
+                localStorage.setItem("token", JSON.stringify(response.data.token))
+
+                console.log(response.data.token)
                    history.push("/recipe")
 
             })
