@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axiosWithAuth from "./../helpers/axiosWithAuth"
 import { useParams } from "react-router-dom";
-
+import Search from "./search"
 
 
 
@@ -23,7 +23,7 @@ function Recipe() {
 
     const [ recipes, setRecipes ] = useState(initialValue)
 
-
+    console.log(recipes)
 
     const getRecipes = () => {
         axiosWithAuth()
@@ -54,13 +54,29 @@ function Recipe() {
         getRecipes()
       }, [])
 
+      const deleteRecipe = () => {
+        axiosWithAuth()
+          .delete(`/api/users/${id}/recipes/${recipes.id}`)
+          .then((res) => {
+            console.log(res)
+            setRecipes(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
 
+
+
+
+
+      }
 
 
 
     return(
         <div>
         <h1>Recipes</h1>
+        <button onClick={deleteRecipe}></button>
         {
             recipes.map(recipe => {
                 return (
@@ -68,7 +84,7 @@ function Recipe() {
                 )
             })
         }
-    
+        <Search recipes={recipes} />
     
         </div>)
 }
