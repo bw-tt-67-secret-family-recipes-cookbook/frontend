@@ -1,27 +1,35 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import axios from "axios"
 
 function SignupForm(props) {
     const {values, submit, change, disabled, errors} = props
 
-    const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
-    }
+   
+    
     const onChange = evt => {
         const { name, value } = evt.target
         change(name, value) 
     }
     const history = useHistory()
 
-    const routeToLogin = () => {
-      console.log(history);
-      history.push('/login')
-    }
-    const routeToHome = () => {
-      console.log(history);
-      history.push('/')
-    }
+  
+    
+    const onSubmit = evt => {
+        evt.preventDefault()
+        axios
+            .post('https://tt67recipes.herokuapp.com/api/users/login', values)
+            .then((response) =>{
+                localStorage.setItem("token", JSON.stringify(response.data.payload))
+                console.log(response)
+                window.location.href("/login")
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        }
     return(
         <form onSubmit={onSubmit}>
             <div>
@@ -48,8 +56,8 @@ function SignupForm(props) {
                 />
             </label>
 
-            <button onClick={routeToLogin}>SignUp</button>
-            <button onClick={routeToHome}>Home</button>
+            <button>SignUp</button>
+            <button>Home</button>
 
             </div>
         </form>)

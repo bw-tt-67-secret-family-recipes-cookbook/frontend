@@ -1,13 +1,13 @@
+import axios from 'axios'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 function Login(props){
     const {values, submit, change, disabled, errors} = props
 
-    const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
-    }
+
+        
+    
     const onChange = evt => {
     const { name, value } = evt.target
     change(name, value)
@@ -15,14 +15,24 @@ function Login(props){
 
     const history = useHistory()
 
-    const routeToRecipe = () => {
-        console.log(history);
-        history.push('/recipe')
-    }
-    const routeToHome = () => {
-        console.log(history);
-        history.push('/')
-      }
+    const onSubmit = evt => {
+        evt.preventDefault()
+        axios
+            .post('https://tt67recipes.herokuapp.com/api/users/login', values)
+            .then((response) =>{
+                console.log(response)
+                   history.push("/recipe")
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        }
+
+
+    
+      
 
     return(
         <form onSubmit={onSubmit}>
@@ -51,10 +61,8 @@ function Login(props){
                 />
             </label>
 
-            <button onClick=
-            {routeToRecipe}>Login</button>
-            <button onClick=
-            {routeToHome}>Home</button>
+            <button>Login</button>
+            <button >Home</button>
 
         </div>    
         </form>
