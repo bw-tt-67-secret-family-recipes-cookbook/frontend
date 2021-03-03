@@ -61,12 +61,10 @@ function Recipe() {
     return(
         <div>
         <h1>Recipes</h1>
-
-
         {
             recipes.map(recipe => {
                 return (
-                <Recipe key={recipe.id} details={recipe} />
+                <div className="recipe">{recipe}</div>
                 )
             })
         }
