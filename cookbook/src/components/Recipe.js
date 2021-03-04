@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
+
 import { useParams, useHistory } from "react-router-dom";
 import EditMenu from "./EditMenu";
 import {getRecipes, editRecipe} from "./../action/index"
 import { connect, useDispatch, useSelector } from 'react-redux';
+
+import axiosWithAuth from "./../helpers/axiosWithAuth"
+
 
 
 
@@ -29,9 +33,11 @@ function Recipe({getRecipes, editRecipe, userRecipe}) {
     const [ recipes, setRecipes ] = useState(initialValue)
 
 
+
     const [editing, setEditing] = useState(false)
     const [recipeToEdit, setRecipeToEdit] = useState(initialValue)
     
+
 
 
     // const editRecipe = recipe => {
@@ -86,23 +92,42 @@ function Recipe({getRecipes, editRecipe, userRecipe}) {
         dispatch(getRecipes(id))
     }, [])
 
+      const deleteRecipe = () => {
+        axiosWithAuth()
+          .delete(`/api/users/${id}/recipes/${recipes.id}`)
+          .then((res) => {
+            console.log(res)
+            setRecipes(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
 
+
+
+
+
+      }
 
 
 
     return(
         <div>
         <h1>Recipes</h1>
+
         <ul>
+
         {
             userRecipe.map(recipe => {
                 <li className="recipe" onClick={() => editRecipe(recipe)}>{recipe.title}</li>
             
             })
         }
+
         </ul>
             { editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
             }    
+
         </div>)
 }
 

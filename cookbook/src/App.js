@@ -73,7 +73,7 @@ const App = () => {
                     change={inputChange}
                     />
                 </Route>    
-                <Route path='/login'>
+                <Route exact path='/login'>
                     <Login 
                     values={formValues}
                     errors={formErrors}

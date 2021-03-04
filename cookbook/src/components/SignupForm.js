@@ -38,10 +38,12 @@ function SignupForm(props) {
         axios
             .post('https://tt67recipes.herokuapp.com/api/users/register', credentials)
             .then((response) =>{
+
                 console.log(response.data)
                 submit();
                 routeToMain();
                 
+
 
             })
             .catch(error => {
