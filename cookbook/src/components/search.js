@@ -11,7 +11,7 @@ export default function Search(props) {
 	return (
 		<div>
 			<input type="text" value={search} onChange={handleChange} />
-			{props.recipes.filter((val) => {
+			{props.userRecipes.filter((val) => {
 				if (search === "") {
 					return val;
 				} else if (
