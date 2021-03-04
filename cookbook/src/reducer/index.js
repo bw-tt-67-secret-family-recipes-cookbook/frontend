@@ -13,7 +13,7 @@ const initialState = {
     error:''
 }
 
-const recipeReducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
     switch(action.type){
         case(FETCHING_RECIPE_START):
             return({
@@ -50,7 +50,9 @@ const recipeReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload
             })
+        default: 
+            return {
+                ...state
+            }
     }
 }
-
-export default recipeReducer;

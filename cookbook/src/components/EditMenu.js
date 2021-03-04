@@ -4,7 +4,7 @@ import React from "react";
 
 
 const EditMenu = ({recipeToEdit, saveEdit, setRecipeToEdit, setEditing}) => {
-
+    
  
 
 

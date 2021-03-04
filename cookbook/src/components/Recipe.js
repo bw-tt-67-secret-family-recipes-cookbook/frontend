@@ -13,10 +13,9 @@ import axiosWithAuth from "./../helpers/axiosWithAuth"
 
 
 
+const Recipe = ({getRecipes, editRecipe, userRecipe}) => { 
 
-function Recipe({getRecipes, editRecipe, userRecipe}) {
-    const userRecipes = useSelector(state => state.userRecipe)
-    console.log(userRecipe)
+    const params = useParams();
 
   const initialValue = {
     title:'',
@@ -24,11 +23,14 @@ function Recipe({getRecipes, editRecipe, userRecipe}) {
     ingredients:'',
     instructions:'',
     category:'',
-    user_id: id,
-  } 
+    user_id: params.id,
+  }
+
+      useEffect(() => {
+        getRecipes(params.id)
+    }, [])
     
     const history = useHistory();
-    const { id } = useParams();
 
     const [ recipes, setRecipes ] = useState(initialValue)
 
@@ -57,7 +59,6 @@ function Recipe({getRecipes, editRecipe, userRecipe}) {
     //         console.log(err)
     //     })
     // }
-  const dispatch = useDispatch();
 
 
 
@@ -87,14 +88,9 @@ function Recipe({getRecipes, editRecipe, userRecipe}) {
     //       postRecipes(recipes)
     // }
 
-
-    useEffect(() => {
-        dispatch(getRecipes(id))
-    }, [])
-
       const deleteRecipe = () => {
         axiosWithAuth()
-          .delete(`/api/users/${id}/recipes/${recipes.id}`)
+          .delete(`/api/users/${params.id}/recipes/${recipes.id}`)
           .then((res) => {
             console.log(res)
             setRecipes(res.data)
