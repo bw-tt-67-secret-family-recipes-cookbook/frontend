@@ -1,7 +1,13 @@
-import {NEW_RECIPE, EDIT_RECIPE} from './../action';
+import {EDIT_RECIPE_START,EDIT_RECIPE_SUCCESS,FETCHING_RECIPE_SUCCESS,FETCHING_RECIPE_START,ADDING_RECIPE_START, ADDING_RECIPE_SUCCESS, HANDLE_ERROR} from './../action';
 
 const initialState = {
-    recipe: {},
+    recipe: {
+        title:"",
+        source:"",
+        ingredients:"",
+        instructions:"",
+        category:""
+    },
     userRecipe: [],
     isFetching: false,
     error:''
@@ -9,17 +15,40 @@ const initialState = {
 
 const recipeReducer = (state = initialState, action) => {
     switch(action.type){
-        case(NEW_RECIPE):
+        case(FETCHING_RECIPE_START):
             return({
                 ...state,
-                userRecipe:state.recipe,
                 isFetching:false
             })
-        case(EDIT_RECIPE):
+        case(FETCHING_RECIPE_SUCCESS):
+            return({
+                ...state,
+                userRecipe:action.payload,
+                isFetching:false,
+            })
+        case(EDIT_RECIPE_START):
+            return({
+                ...state,
+            })
+        case(EDIT_RECIPE_SUCCESS):
+            return({
+                ...state,
+                recipe:action.payload
+            })
+        case(ADDING_RECIPE_START):
+            return({
+                ...state,
+            })
+        case(ADDING_RECIPE_SUCCESS):
             return({
                 ...state,
                 recipe:action.payload,
-                isFetching:false,
+                userRecipe:[...state.userRecipe]
+            })
+        case(HANDLE_ERROR):
+            return({
+                ...state,
+                error: action.payload
             })
     }
 }
