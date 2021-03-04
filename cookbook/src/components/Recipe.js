@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-
+import RecipeForm from "./RecipeForm";
 import { useParams, useHistory } from "react-router-dom";
 import EditMenu from "./EditMenu";
-import { getRecipes, editRecipe } from "../action/index"
+import { getRecipes, editRecipe } from "../action/index";
 import { connect, useDispatch, useSelector } from 'react-redux';
-import Search from "../components/search"
-import axiosWithAuth from "./../helpers/axiosWithAuth"
+import Search from "../components/search";
+import axiosWithAuth from "./../helpers/axiosWithAuth";
+import styled from "styled-components";
+
+
+
 
 
 // const Recipe = () => {
@@ -128,8 +132,11 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
 
     return(
         <div>
+         
         <h1>Recipes</h1>
 
+        <Search className="searchbar" userRecipe={userRecipe}/>
+        <RecipeForm/>
         <ul>
 
         {
@@ -140,9 +147,9 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
         }
 
         </ul>
-            {  <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
+            {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
             }    
-              <Search userRecipe={userRecipe}/>
+              
         </div>)
 }
 
