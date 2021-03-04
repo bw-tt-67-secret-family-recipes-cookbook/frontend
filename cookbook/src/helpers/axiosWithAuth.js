@@ -1,16 +1,12 @@
-import axios from "axios"
+import axios from 'axios'
 
-
-const axiosWithAuth = () => {
-    const token = JSON.parse( localStorage.getItem("token") );
+export default function axiosWithAuth() {
+    const token =localStorage.getItem('token')
 
     return axios.create({
-        headers: {
-            Authorization: token
-        },
-        baseURL:"https://tt67recipes.herokuapp.com"
-    });
-
+        baseURL: 'https://tt67recipes.herokuapp.com',
+        headers:{
+            Authorization:token
+        }
+    })
 }
-
-export default axiosWithAuth;

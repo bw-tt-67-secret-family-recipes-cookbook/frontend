@@ -1,13 +1,7 @@
 import {EDIT_RECIPE_START,EDIT_RECIPE_SUCCESS,FETCHING_RECIPE_SUCCESS,FETCHING_RECIPE_START,ADDING_RECIPE_START, ADDING_RECIPE_SUCCESS, HANDLE_ERROR} from './../action';
 
 const initialState = {
-    recipe: {
-        title:"",
-        source:"",
-        ingredients:"",
-        instructions:"",
-        category:""
-    },
+    recipe: {},
     userRecipe: [],
     isFetching: false,
     error:''
@@ -51,8 +45,6 @@ export const reducer = (state = initialState, action) => {
                 error: action.payload
             })
         default: 
-            return {
-                ...state
-            }
+            return state
     }
 }

@@ -3,12 +3,31 @@ import React, { useEffect, useState } from 'react'
 
 import { useParams, useHistory } from "react-router-dom";
 import EditMenu from "./EditMenu";
-import {getRecipes, editRecipe} from "./../action/index"
+import { getRecipes, editRecipe } from "../action/index"
 import { connect, useDispatch, useSelector } from 'react-redux';
 
 import axiosWithAuth from "./../helpers/axiosWithAuth"
 
 
+// const Recipe = () => {
+//   const params = useParams()
+//   const history = useHistory()
+//   const dispatch = useDispatch()
+//   useEffect(() => {
+//     dispatch(getRecipes(params.id))
+//   }, [])
+//   return (
+//     <div>Recipes</div>
+//   )
+// }
+
+// const mapStateToProps = state => {
+//   return {
+//     userRecipe: state.userRecipe
+//   }
+// }
+
+// export default connect(mapStateToProps, { getRecipes, editRecipe })(Recipe)
 
 
 
@@ -121,7 +140,7 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
         }
 
         </ul>
-            { editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
+            {  <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
             }    
 
         </div>)
