@@ -35,7 +35,7 @@ function Login(props){
             .post('https://tt67recipes.herokuapp.com/api/users/login', credentials)
             .then( response =>{
                 console.log(response)
-                localStorage.setItem('token', response.data.token)
+                localStorage.setItem('token',JSON.stringify(response.data.token))
                 history.push(`/${response.data.data[0].user_id}/recipe`)
 
 

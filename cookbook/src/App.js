@@ -83,11 +83,9 @@ const App = () => {
                     />
                 </Route>    
                
-                  {/* <PrivateRoute exact path='/:id/recipe' component={Recipe}/> */}
-                  <Route
-        exact
-        path="/:id/recipe"
-        render={props => <Recipe {...props}/>}/>
+                  <PrivateRoute exact path='/:id/recipe' component={Recipe}/> 
+                  
+      
                 <Route exact path='/'>
                     <Home />
                 </Route>

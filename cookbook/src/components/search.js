@@ -13,7 +13,7 @@ export default function Search(props) {
 	return (
 		<div>
 			<input type="text" value={search} onChange={handleChange} />
-			{ [userRecipe].filter((val) => {
+			{ userRecipe.filter((val) => {
 				if (search === "") {
 					return val;
 				} else if (

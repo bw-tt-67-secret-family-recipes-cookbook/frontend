@@ -13,7 +13,7 @@ import axiosWithAuth from "./../helpers/axiosWithAuth"
 
 
 
-const Recipe = ({getRecipes, editRecipe, userRecipe}) => { 
+const Recipe = ({ getRecipes,editRecipe, userRecipe}) => { 
 
     const params = useParams();
 
@@ -63,17 +63,17 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
 
 
 
-      //   const getRecipes = () => {
-      //     axiosWithAuth()
-      //       .get('/api/users/:id/recipes')
-      //      .then((res) => {
-      //         console.log(res)
-      //        setRecipes(res)
-      //      })
-      //       .catch((err) => {
-      //        console.log(err)
-      //       })
-      //  }
+        //  const getRecipes = () => {
+        //    axiosWithAuth()
+        //      .get('/api/users/:id/recipes')
+        //    .then((res) => {
+        //        console.log(res)
+        //       setRecipes(res)
+        //   })
+        //    .catch((err) => {
+        //     console.log(err)
+        //     })
+        // }
       
     // const postRecipes = newRecipe => {
     //     axiosWithAuth()
