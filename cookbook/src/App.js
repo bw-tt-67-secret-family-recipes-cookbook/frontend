@@ -83,7 +83,7 @@ const App = () => {
                     />
                 </Route>    
                
-                  <PrivateRoute exact path='/recipe' component={Recipe}/>
+                  <PrivateRoute exact path='/:id/recipe' component={Recipe}/>
                 
                 <Route exact path='/'>
                     <Home />

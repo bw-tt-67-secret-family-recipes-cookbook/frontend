@@ -1,16 +1,29 @@
 import axios from 'axios'
-import React from 'react'
+import React, {useState} from 'react'
 import { useHistory } from 'react-router-dom'
 
+
+const initial = {
+    username:'',
+    password:'',
+}
+
+
 function Login(props){
+
+    const [credentials, setCredentials] = useState(initial);
     const {values, submit, change, disabled, errors} = props
 
 
         
     
     const onChange = evt => {
-    const { name, value } = evt.target
-    change(name, value)
+    const { name, value } = evt.target;
+    setCredentials({
+        ...credentials,
+        [evt.target.name]: evt.target.value
+    });
+    change(name, value);
     }
 
     const history = useHistory()
@@ -18,10 +31,11 @@ function Login(props){
     const onSubmit = evt => {
         evt.preventDefault()
         axios
-            .post('https://tt67recipes.herokuapp.com/api/users/login', values)
-            .then((response) =>{
+            .post('https://tt67recipes.herokuapp.com/api/users/login', credentials)
+            .then( response =>{
                 console.log(response)
-                   history.push("/recipe")
+                localStorage.setItem('token', response.data.token)
+                history.push(`/${response.data.data[0].user_id}/recipe`)
 
             })
             .catch(error => {
@@ -72,4 +86,4 @@ function Login(props){
 }
 
 
-export default Login
+export default Login;

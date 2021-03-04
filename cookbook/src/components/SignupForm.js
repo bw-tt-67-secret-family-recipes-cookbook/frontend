@@ -1,35 +1,56 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from "axios"
 
+const initialValues = {
+    username: '',
+    password: '',
+  }
+
+
+
 function SignupForm(props) {
+    const [credentials, setCredentials] = useState(initialValues)
     const {values, submit, change, disabled, errors} = props
 
-   
-    
     const onChange = evt => {
-        const { name, value } = evt.target
-        change(name, value) 
+        const {name, value } = evt.target;
+        setCredentials({
+            ...credentials,
+            [evt.target.name]: evt.target.value,
+        });
+        change(name, value);
     }
-    const history = useHistory()
+    
+    // const onChange = evt => {
+    //     const { name, value } = evt.target
+    //     change(name, value) 
+    // }
 
+    const history = useHistory()
+    const routeToMain = () => {
+        history.push("/login")
+    }
   
     
     const onSubmit = evt => {
         evt.preventDefault()
         axios
-            .post('https://tt67recipes.herokuapp.com/api/users/login', values)
+            .post('https://tt67recipes.herokuapp.com/api/users/register', credentials)
             .then((response) =>{
-                localStorage.setItem("token", JSON.stringify(response.data.payload))
-                console.log(response)
-                window.location.href("/login")
+                console.log(response.data)
+                submit();
+                routeToMain();
+                
 
             })
             .catch(error => {
                 console.log(error)
-            })
-
+            });
+            routeToMain()
         }
+
+
     return(
         <form onSubmit={onSubmit}>
             <div>

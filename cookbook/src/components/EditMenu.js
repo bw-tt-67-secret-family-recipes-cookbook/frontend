@@ -1,40 +1,11 @@
-import React, {useState}from "react";
-import axiosWithAuth from "./../helpers/axiosWithAuth";
-import {useParams} from "react-router-dom";
-
-const initialValue = {
-    title:'',
-    source:'',
-    ingredients:'',
-    instructions:'',
-    category:'',
-} 
+import React from "react";
 
 
-const EditMenu = () => {
-
-    const [editing, setEditing] = useState(false)
-    const [recipeToEdit, setRecipeToEdit] = useState(initialValue)
-    const { id } = useParams();
 
 
-    const editRecipe = recipe => {
-        setEditing(true);
-        setRecipeToEdit(recipe);
-    }
+const EditMenu = ({recipeToEdit, saveEdit, setRecipeToEdit, setEditing}) => {
 
-    const saveEdit = e => {
-        e.preventDefault();
-        axiosWithAuth()
-        .put(`/api/users/${id}/recipes`, recipeToEdit)
-        .then( res => {
-            setEditing(false)
-
-        })
-        .catch( err => {
-            console.log(err)
-        })
-    }
+ 
 
 
 
@@ -57,7 +28,33 @@ const EditMenu = () => {
             }
             value={recipeToEdit.source}
             />
-    </form>)
+         <label>Recipe Ingredients:</label>
+        <input
+            name="recipeIngredients"
+            onChange={ (e) =>
+                setRecipeToEdit({...recipeToEdit, ingredients: e.target.value})
+            }
+            value={recipeToEdit.ingredients}
+            />
+        <label>Recipe Instructions:</label>
+        <input
+            name="recipeInstructions"
+            onChange={ (e) =>
+                setRecipeToEdit({...recipeToEdit, instructions: e.target.value})
+            }
+            value={recipeToEdit.instructions}
+            />
+        <label>Recipe Category:</label>
+        <input
+            name="recipeCategory"
+            onChange={ (e) =>
+                setRecipeToEdit({...recipeToEdit, category: e.target.value})
+            }
+            value={recipeToEdit.category}
+            />
+        <button type="submit">save</button>
+        <button onClick={() => setEditing(false)}>cancel</button>
+    </form>);
 }
 
 export default EditMenu;
