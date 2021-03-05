@@ -10,6 +10,7 @@ const initialState = {
     ingredients:'',
     instructions:'',
     category:'',
+    user_id:57,
  }
 
 const RecipeForm = () => {

@@ -28,13 +28,13 @@ export const getRecipes = (id) => dispatch => {
 export const addRecipe = (newRecipe) => dispatch => {
     dispatch({type:ADDING_RECIPE_START});
     axiosWithAuth()
-        .post(`/api/users/:id/recipes`, newRecipe)
+        .post(`/api/users/57/recipes`, newRecipe)
         .then( res => {
             console.log(res)
             dispatch({type:ADDING_RECIPE_SUCCESS, payload:res.data})
         })
         .catch( err => {
-            console.log(err)
+            console.error(err.response);
             dispatch({type:HANDLE_ERROR, payload: err.reponse});
         })
 }
