@@ -40,6 +40,14 @@ const RecipeForm = () => {
             <form onSubmit={onSubmit}>
                 <label>Title:</label>
                 <input type="text" name="title" value={recipe.title} onChange={handleChange}/>
+                <label>Source:</label>
+                <input type="text" name="source" value={recipe.source} onChange={handleChange}/>
+                <label>Ingredients:</label>
+                <input type="text" name="ingredients" value={recipe.ingredients} onChange={handleChange}/>
+                <label>Instructions:</label>
+                <input type="text" name="instructions" value={recipe.instructions} onChange={handleChange}/>
+                <label>Category:</label>
+                <input type="text" name="category" value={recipe.category} onChange={handleChange}/>
                 <button type="submit">Add Recipe</button>
             </form>
 

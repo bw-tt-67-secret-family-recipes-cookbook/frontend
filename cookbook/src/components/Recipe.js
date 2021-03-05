@@ -147,8 +147,8 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
         }
 
         </ul>
-            {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
-            }    
+            {/* {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
+            }     */}
               
         </div>)
 }

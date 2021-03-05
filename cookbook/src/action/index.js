@@ -12,7 +12,7 @@ export const ADDING_RECIPE_SUCCESS = "ADDING_RECIPE_SUCCESS";
 
 export const getRecipes = (id) => dispatch => {
     dispatch({type: FETCHING_RECIPE_START});
-    console.log(dispatch)
+    
     axiosWithAuth()
         .get(`/api/users/${id}/recipes`)
         .then( res => {
