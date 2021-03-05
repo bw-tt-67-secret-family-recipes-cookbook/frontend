@@ -115,7 +115,9 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
     }, [])
     
     
-    
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+  }
 
 
     return(
@@ -127,6 +129,7 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
         </ImgContainer>
         {/* <Search userRecipe={userRecipe}/> */}
         <Link to={`/add-recipe/${params.id}`}><Alink>Recipe Form</Alink></Link>
+        <Link to={'/'} onClick={handleLogout}><Alink>Logout</Alink></Link>
         <RecipeList>
 
         {

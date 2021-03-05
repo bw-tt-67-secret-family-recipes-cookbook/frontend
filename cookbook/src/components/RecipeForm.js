@@ -136,6 +136,10 @@ const RecipeForm = () => {
         })
     }
 
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+    }
+
     useEffect(() => {
         if(history.location.pathname === `/edit-recipe/${params.id}/${params.cipe}`){
            axios
@@ -155,6 +159,7 @@ const RecipeForm = () => {
             {console.log(params)}
             <Title>Add The Secret Recipe</Title>
             <Link to={`/${params.id}/recipe`}><Alink>Recipe Home</Alink></Link>
+            <Link to={'/'} onClick={handleLogout}><Alink>Logout</Alink></Link>
             <ImgOne></ImgOne>
             <Form>
                 <Label>Title:
