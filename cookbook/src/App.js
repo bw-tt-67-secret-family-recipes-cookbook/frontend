@@ -7,7 +7,8 @@ import formSchema from './formSchema'
 import Login from './components/Login'
 import Recipe from './components/Recipe'
 import PrivateRoute from './helpers/PrivateRoute'
-
+import RecipeForm from './components/RecipeForm'
+import "./App.css"
 
 const initialFormValues = {
     username: '',
@@ -61,7 +62,7 @@ const App = () => {
 
   
     return (
-        <div> 
+        <div className="background"> 
           <Switch>
       
                 <Route path='/signupform'>
@@ -82,12 +83,14 @@ const App = () => {
                     change={inputChange}
                     />
                 </Route>    
-               
+                
                   {/* <PrivateRoute exact path='/:id/recipe' component={Recipe}/> */}
                   <Route
-        exact
-        path="/:id/recipe"
-        render={props => <Recipe {...props}/>}/>
+                      exact
+                      path="/:id/recipe"
+                      render={props => <Recipe {...props}/>}/>
+                  <Route path='/add-recipe/:id' component={RecipeForm}/>
+                  <Route path='/edit-recipe/:id/:cipe' component={RecipeForm}/>
                 <Route exact path='/'>
                     <Home />
                 </Route>
