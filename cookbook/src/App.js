@@ -8,7 +8,7 @@ import Login from './components/Login'
 import Recipe from './components/Recipe'
 import PrivateRoute from './helpers/PrivateRoute'
 import RecipeForm from './components/RecipeForm'
-
+import "./App.css"
 
 const initialFormValues = {
     username: '',
@@ -62,7 +62,7 @@ const App = () => {
 
   
     return (
-        <div> 
+        <div className="background"> 
           <Switch>
       
                 <Route path='/signupform'>

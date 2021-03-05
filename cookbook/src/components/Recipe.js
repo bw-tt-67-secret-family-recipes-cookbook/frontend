@@ -2,58 +2,95 @@ import React, { useEffect, useState } from 'react';
 
 import RecipeForm from "./RecipeForm";
 import { Link, useParams, useHistory } from "react-router-dom";
-import EditMenu from "./EditMenu";
 import { getRecipes, editRecipe, deleteRecipe } from "../action/index";
 import { connect, useDispatch } from 'react-redux';
 import Search from "../components/search";
-import axiosWithAuth from "./../helpers/axiosWithAuth";
 import styled from "styled-components";
+
+const Title = styled.h1`
+text-align:center;
+`
+const ImgOne = styled.img`
+  background-image: url(https://static01.nyt.com/images/2018/10/23/dining/as-white-bean-tomato/as-white-bean-tomato-superJumbo-v2.jpg);
+  height: 40vh;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  
+`
+const ImgContainer = styled.div`
+  display:flex;
+  align-content:center;
+`
 
 const RecipeDisplay = styled.div`
   
-
-
-  
+  text-align: center;
+  background: white;
+  margin: 10px;
+  border-radius:8%;
 `
 const RecipeList = styled.ul`
   display:flex;
-
+  justify-content: center;
+  align-content:center;
 `
 
 const RecipeWrapper = styled.div`
-  
-  
+  text-align: center;
   margin: 20px;
-
+  
+  
 `
 
 const RecipeButton= styled.div`
   
-  margin: 20px;
-  display: flex;
+  margin: 15px;
+  display: inline-block;
+  cursor: pointer;
+  color:white;
+  padding: 5px;
+  border-radius:8%;
+  background:#aa6639;
+  transition: .25s ease-in-out;
+  justify-content: center;
+  width: 45px;
   
+  &:hover {
+      cursor: pointer;
+      background: white;
+      color: black;
+      border: none;
+  }
 `
 
-// const Recipe = () => {
-//   const params = useParams()
-//   const history = useHistory()
-//   const dispatch = useDispatch()
-//   useEffect(() => {
-//     dispatch(getRecipes(params.id))
-//   }, [])
-//   return (
-//     <div>Recipes</div>
-//   )
-// }
+const Container = styled.div`
+  & > a {
+    text-decoration: none;
+    color: white;
+    
+  }
+  
+`
+const Alink = styled.a`
+  display:flex;
+  justify-content: center;
+  width: max-content;
+  margin: 18px auto auto auto;
+  padding: 5px;
+  border-radius:8%;
+  background:#aa6639;
+  transition: .25s ease-in-out;
+  
 
-// const mapStateToProps = state => {
-//   return {
-//     userRecipe: state.userRecipe
-//   }
-// }
-
-// export default connect(mapStateToProps, { getRecipes, editRecipe })(Recipe)
-
+  &:hover {
+    cursor: pointer;
+    background: white;
+    color: #aa6639;
+    border: none;
+  }
+`
 
 
 
@@ -81,84 +118,15 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
     
 
 
-    // const [ recipes, setRecipes ] = useState(initialValue)
-
-
-
-    // const [editing, setEditing] = useState(false)
-    // const [recipeToEdit, setRecipeToEdit] = useState(initialValue)
-    
-
-
-
-    // const changeRecipe = recipe => {
-    //     setEditing(true);
-    //     setRecipeToEdit(recipe);
-    // }
-
-    // const saveEdit = e => {
-    //     e.preventDefault();
-    //     axiosWithAuth()
-    //     .put(`/api/users/${recipeToEdit.id}/recipes`, recipeToEdit)
-    //     .then( res => {
-    //         setEditing(false)
-    //         history.push(`/`)
-    //     })
-    //     .catch( err => {
-    //         console.log(err)
-    //     })
-    // }
-
-
-
-
-      //   const getRecipes = () => {
-      //     axiosWithAuth()
-      //       .get('/api/users/:id/recipes')
-      //      .then((res) => {
-      //         console.log(res)
-      //        setRecipes(res)
-      //      })
-      //       .catch((err) => {
-      //        console.log(err)
-      //       })
-      //  }
-      
-    // const postRecipes = newRecipe => {
-    //     axiosWithAuth()
-    //       .post(`/api/users/${id}/recipes`, newRecipe)
-    //       .then((res) => {
-    //         console.log(res)
-    //         setRecipes(res)
-    //       })
-    //       .catch((err) => {
-    //         console.log(err)
-    //       })
-    //       postRecipes(recipes)
-    // }
-
-      // const deleteRecipe = () => {
-      //   axiosWithAuth()
-      //     .delete(`/api/users/${params.id}/recipes/${recipes.id}`)
-      //     .then((res) => {
-      //       console.log(res)
-      //       setRecipes(res.data)
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-
-      // }
-
-
-
     return(
-        <div>
+        <Container>
          
-        <h1>Recipes</h1>
-
+        <Title>Recipes</Title>
+        <ImgContainer>
+        <ImgOne></ImgOne>
+        </ImgContainer>
         {/* <Search userRecipe={userRecipe}/> */}
-        <Link to={`/add-recipe/${params.id}`}>Recipe Form</Link>
+        <Link to={`/add-recipe/${params.id}`}><Alink>Recipe Form</Alink></Link>
         <RecipeList>
 
         {
@@ -194,7 +162,7 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
             {/* {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
             }     */}
               
-        </div>)
+        </Container>)
 }
 
 const mapStateToProps = state => {
