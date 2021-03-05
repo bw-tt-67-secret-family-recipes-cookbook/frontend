@@ -11,7 +11,11 @@ import styled from "styled-components";
 
 
 
+const RecipeWrapper = styled.div`
 
+  margin: 20px;
+
+`
 
 // const Recipe = () => {
 //   const params = useParams()
@@ -133,18 +137,27 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
 
         {/* <Search userRecipe={userRecipe}/> */}
         <RecipeForm/>
-        <ul>
+        <ul className="recipeList">
 
         {
             userRecipe.map(recipe => {
-                return <li className="recipe" onClick={() => editRecipe(recipe)}>{recipe.title}</li>
+                return (
+                  <RecipeWrapper>
+                    <h2>Recipe: {recipe.title}</h2>
+                    <h4>Source: {recipe.source}</h4>
+                    <div>Ingredients: {recipe.ingredients}</div>
+                    <div>Instructions: {recipe.instructions}</div>
+                    <div>Category: {recipe.category}</div>
+                  </RecipeWrapper>
+                )
+                // <li className="recipe" onClick={() => editRecipe(recipe)}>{recipe.title}</li>
             
             })
         }
 
         </ul>
-            {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
-            }    
+            {/* {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
+            }     */}
               
         </div>)
 }

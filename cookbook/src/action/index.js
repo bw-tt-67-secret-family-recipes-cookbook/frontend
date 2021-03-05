@@ -28,7 +28,7 @@ export const getRecipes = (id) => dispatch => {
 export const addRecipe = (newRecipe) => dispatch => {
     dispatch({type:ADDING_RECIPE_START});
     axiosWithAuth()
-        .post(`/api/users/57/recipes`, newRecipe)
+        .post(`/api/users/:id/recipes`, newRecipe)
         .then( res => {
             console.log(res)
             dispatch({type:ADDING_RECIPE_SUCCESS, payload:res.data})
