@@ -1,29 +1,55 @@
-import React from 'react'
+import axios from 'axios'
+import React, {useState} from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
+
+const initial = {
+    username:'',
+    password:'',
+}
+
+
 function Login(props){
+
+    const [credentials, setCredentials] = useState(initial);
     const {values, submit, change, disabled, errors} = props
 
-    const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
-    }
+
+        
+    
     const onChange = evt => {
-    const { name, value } = evt.target
-    change(name, value)
+    const { name, value } = evt.target;
+    setCredentials({
+        ...credentials,
+        [evt.target.name]: evt.target.value
+    });
+    change(name, value);
     }
 
     const history = useHistory()
 
-    const routeToRecipe = () => {
-        console.log(history);
-        history.push('/recipe')
-    }
-    const routeToHome = () => {
-        console.log(history);
-        history.push('/')
-      }
+    const onSubmit = evt => {
+        evt.preventDefault()
+        axios
+
+            .post('https://tt67recipes.herokuapp.com/api/users/login', credentials)
+            .then( response =>{
+                console.log(response)
+                localStorage.setItem('token', response.data.token)
+                history.push(`/${response.data.data[0].user_id}/recipe`)
+
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        }
+
+
+    
+      
 
     const Wrapper = styled.div`
         width: 100%;
@@ -140,4 +166,5 @@ function Login(props){
 
 }
 
-export default Login
+
+export default Login;

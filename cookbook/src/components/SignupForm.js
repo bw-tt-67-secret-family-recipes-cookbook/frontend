@@ -1,19 +1,32 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+import axios from "axios"
+
+const initialValues = {
+    username: '',
+    password: '',
+  }
+
+
 
 function SignupForm(props) {
+    const [credentials, setCredentials] = useState(initialValues)
     const {values, submit, change, disabled, errors} = props
 
-    const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
-    }
     const onChange = evt => {
-        const { name, value } = evt.target
-        change(name, value) 
+        const {name, value } = evt.target;
+        setCredentials({
+            ...credentials,
+            [evt.target.name]: evt.target.value,
+        });
+        change(name, value);
     }
-    const history = useHistory()
+    
+    // const onChange = evt => {
+    //     const { name, value } = evt.target
+    //     change(name, value) 
+    // }
 
     const routeToLogin = () => {
         console.log(history);
@@ -96,6 +109,30 @@ function SignupForm(props) {
     `
 
    
+    const history = useHistory()
+    const routeToMain = () => {
+        history.push("/login")
+    }
+  
+    
+    const onSubmit = evt => {
+        evt.preventDefault()
+        axios
+            .post('https://tt67recipes.herokuapp.com/api/users/register', credentials)
+            .then((response) =>{
+
+                console.log(response.data)
+                submit();
+                routeToMain();
+                
+
+
+            })
+            .catch(error => {
+                console.log(error)
+            });
+            routeToMain()
+        }
 
 
     return(

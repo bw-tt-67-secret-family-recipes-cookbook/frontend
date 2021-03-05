@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from './components/Home'
 import SignupForm from './components/SignupForm'
-import axios from 'axios'
-import *as yup from 'yup'
+import * as yup from 'yup'
 import formSchema from './formSchema'
 import Login from './components/Login'
 import Recipe from './components/Recipe'
+import PrivateRoute from './helpers/PrivateRoute'
+
 
 const initialFormValues = {
     username: '',
@@ -16,40 +17,17 @@ const initialFormValues = {
     username: '',
     password: '',
   }
-  const initialRecipes = []
+  
   const initialDisabled = false
 
 const App = () => {
 
-    const [ recipes, setRecipes ] = useState(initialRecipes)
+    
     const [ formValues, setFormValues ] = useState(initialFormValues)
     const [ formErrors, setFormErrors ] = useState(initialFormErrors)
     const [ disabled, setDisabled ] = useState(initialDisabled)
     
-    const getRecipes = () => {
-      axios
-        .get('https://tt67recipes.herokuapp.com/api/users/:id/recipes')
-        .then((res) => {
-          console.log(res)
-          // setRecipes(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
     
-    const postRecipes = newRecipe => {
-      axios
-        .post('https://tt67recipes.herokuapp.com/api/users/:id/recipes')
-        .then((res) => {
-          console.log(res)
-          // setRecipes(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        setFormValues(initialFormValues)
-    }
     
     const inputChange = (name, value) => {
       yup
@@ -68,16 +46,14 @@ const App = () => {
     }
     
     const formSubmit = () => {
-      const newRecipe = {
+      const newUser = {
         username: formValues.username.trim(),
         password: formValues.password.trim(),
       }
-      postRecipes(newRecipe)
+      setFormValues(newUser)
     }
     
-    useEffect(() => {
-      getRecipes()
-    }, [])
+
     
     useEffect(() => {
     formSchema.isValid(formValues).then(valid => setDisabled(!valid))
@@ -85,8 +61,9 @@ const App = () => {
 
   
     return (
-        <div>
-            <Switch>
+        <div> 
+          <Switch>
+      
                 <Route path='/signupform'>
                     <SignupForm 
                     values={formValues}
@@ -96,7 +73,7 @@ const App = () => {
                     change={inputChange}
                     />
                 </Route>    
-                <Route path='/login'>
+                <Route exact path='/login'>
                     <Login 
                     values={formValues}
                     errors={formErrors}
@@ -105,20 +82,17 @@ const App = () => {
                     change={inputChange}
                     />
                 </Route>    
-                <Route exact path='/recipe'>
-                    <Recipe />
-                </Route>
+               
+                  {/* <PrivateRoute exact path='/:id/recipe' component={Recipe}/> */}
+                  <Route
+        exact
+        path="/:id/recipe"
+        render={props => <Recipe {...props}/>}/>
                 <Route exact path='/'>
                     <Home />
                 </Route>
             </Switch>
-            {
-            recipes.map(recipe => {
-                return (
-                <Recipe key={recipe.id} details={recipe} />
-                )
-            })
-            }
+            
         </div>
     )
 }
