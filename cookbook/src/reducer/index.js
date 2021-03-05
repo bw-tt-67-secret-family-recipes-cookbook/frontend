@@ -1,4 +1,4 @@
-import {EDIT_RECIPE_START,EDIT_RECIPE_SUCCESS,FETCHING_RECIPE_SUCCESS,FETCHING_RECIPE_START,ADDING_RECIPE_START, ADDING_RECIPE_SUCCESS, HANDLE_ERROR} from './../action';
+import {DELETE_RECIPE_SUCCESS, DELETE_RECIPE_START, EDIT_RECIPE_START,EDIT_RECIPE_SUCCESS,FETCHING_RECIPE_SUCCESS,FETCHING_RECIPE_START,ADDING_RECIPE_START, ADDING_RECIPE_SUCCESS, HANDLE_ERROR} from './../action';
 
 const initialState = {
     recipe: {},
@@ -43,6 +43,17 @@ export const reducer = (state = initialState, action) => {
             return({
                 ...state,
                 error: action.payload
+            })
+        case(DELETE_RECIPE_START):
+            return({
+                ...state
+            })
+        case(DELETE_RECIPE_SUCCESS):
+            return({
+                ...state,
+                userRecipe: state.userRecipe.filter((recipe) => {
+                    return (recipe.id !== action.payload.recipe_id)
+                })
             })
         default: 
             return state

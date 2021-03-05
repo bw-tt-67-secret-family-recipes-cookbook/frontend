@@ -9,6 +9,9 @@ export const FETCHING_RECIPE_START= "FETCHING_RECIPE_START";
 export const HANDLE_ERROR = "HANDLE_ERROR";
 export const ADDING_RECIPE_START = "ADDING_RECIPE_START";
 export const ADDING_RECIPE_SUCCESS = "ADDING_RECIPE_SUCCESS";
+export const DELETE_RECIPE_START = "DELETE_RECIPE_START";
+export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
+
 
 export const getRecipes = (id) => dispatch => {
     dispatch({type: FETCHING_RECIPE_START});
@@ -25,10 +28,10 @@ export const getRecipes = (id) => dispatch => {
         })
 }
 
-export const addRecipe = (newRecipe) => dispatch => {
+export const addRecipe = (id, newRecipe) => dispatch => {
     dispatch({type:ADDING_RECIPE_START});
     axiosWithAuth()
-        .post(`/api/users/:id/recipes`, newRecipe)
+        .post(`/api/users/${id}/recipes`, newRecipe)
         .then( res => {
             console.log(res)
             dispatch({type:ADDING_RECIPE_SUCCESS, payload:res.data})
@@ -42,7 +45,7 @@ export const addRecipe = (newRecipe) => dispatch => {
 export const editRecipe = (newRecipe) => dispatch => {
     dispatch({type:EDIT_RECIPE_START});
     axiosWithAuth()
-    .put(`/api/users/${newRecipe.id}`, newRecipe)
+    .put(`/api/users/:id/recipe/${newRecipe.recipe_id}`, newRecipe)
     .then( res => {
         console.log(res)
         dispatch({type:EDIT_RECIPE_SUCCESS, payload:res.data});
@@ -53,3 +56,18 @@ export const editRecipe = (newRecipe) => dispatch => {
     })
 }
 
+export const deleteRecipe = (id, recipe) => dispatch => {
+    dispatch({type:DELETE_RECIPE_START});
+    axiosWithAuth()
+    .delete(`/api/users/${id}/recipes/${recipe.recipe_id}`)
+    .then( res => {
+        console.log(res)
+        dispatch({type:DELETE_RECIPE_SUCCESS, payload: recipe})
+        window.location.reload();
+    })
+    .catch( err => {
+        console.log(err.response)
+        dispatch({type:HANDLE_ERROR, payload: err.response})
+    })
+
+}

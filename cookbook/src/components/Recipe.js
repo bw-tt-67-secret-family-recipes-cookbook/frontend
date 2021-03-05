@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from 'react';
 
 import RecipeForm from "./RecipeForm";
-import { useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import EditMenu from "./EditMenu";
-import { getRecipes, editRecipe } from "../action/index";
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { getRecipes, editRecipe, deleteRecipe } from "../action/index";
+import { connect, useDispatch } from 'react-redux';
 import Search from "../components/search";
 import axiosWithAuth from "./../helpers/axiosWithAuth";
 import styled from "styled-components";
 
+const RecipeDisplay = styled.div`
+  
 
+
+  
+`
+const RecipeList = styled.ul`
+  display:flex;
+
+`
 
 const RecipeWrapper = styled.div`
-
+  
+  
   margin: 20px;
 
+`
+
+const RecipeButton= styled.div`
+  
+  margin: 20px;
+  display: flex;
+  
 `
 
 // const Recipe = () => {
@@ -42,7 +59,10 @@ const RecipeWrapper = styled.div`
 
 const Recipe = ({getRecipes, editRecipe, userRecipe}) => { 
 
-    const params = useParams();
+  const params = useParams();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
 
   const initialValue = {
     title:'',
@@ -57,14 +77,16 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
         getRecipes(params.id)
     }, [])
     
-    const history = useHistory();
-
-    const [ recipes, setRecipes ] = useState(initialValue)
-
+    
+    
 
 
-    const [editing, setEditing] = useState(false)
-    const [recipeToEdit, setRecipeToEdit] = useState(initialValue)
+    // const [ recipes, setRecipes ] = useState(initialValue)
+
+
+
+    // const [editing, setEditing] = useState(false)
+    // const [recipeToEdit, setRecipeToEdit] = useState(initialValue)
     
 
 
@@ -115,18 +137,18 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
     //       postRecipes(recipes)
     // }
 
-      const deleteRecipe = () => {
-        axiosWithAuth()
-          .delete(`/api/users/${params.id}/recipes/${recipes.id}`)
-          .then((res) => {
-            console.log(res)
-            setRecipes(res.data)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+      // const deleteRecipe = () => {
+      //   axiosWithAuth()
+      //     .delete(`/api/users/${params.id}/recipes/${recipes.id}`)
+      //     .then((res) => {
+      //       console.log(res)
+      //       setRecipes(res.data)
+      //     })
+      //     .catch((err) => {
+      //       console.log(err)
+      //     })
 
-      }
+      // }
 
 
 
@@ -136,26 +158,39 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
         <h1>Recipes</h1>
 
         {/* <Search userRecipe={userRecipe}/> */}
-        <RecipeForm/>
-        <ul className="recipeList">
+        <Link to={`/add-recipe/${params.id}`}>Recipe Form</Link>
+        <RecipeList>
 
         {
             userRecipe.map(recipe => {
                 return (
+                  <RecipeDisplay>
                   <RecipeWrapper>
-                    <h2>Recipe: {recipe.title}</h2>
+                    <h2>{recipe.title}</h2>
                     <h4>Source: {recipe.source}</h4>
-                    <div>Ingredients: {recipe.ingredients}</div>
-                    <div>Instructions: {recipe.instructions}</div>
-                    <div>Category: {recipe.category}</div>
+                    <div><b>Ingredients: </b>{recipe.ingredients}</div>
+                    <div><b>Instructions:</b> {recipe.instructions}</div>
+                    <div><b>Category: </b>{recipe.category}</div>
+                    <RecipeButton onClick={(event) => {
+                      event.preventDefault()
+                      history.push(`/edit-recipe/${params.id}/${recipe.recipe_id}`)
+                    }}>
+                    Edit
+                    </RecipeButton>
+                    <RecipeButton onClick={() => {
+                      dispatch(deleteRecipe(params.id, recipe))
+                    }}>
+                    Delete
+                    </RecipeButton>
                   </RecipeWrapper>
+                  </RecipeDisplay>
                 )
                 // <li className="recipe" onClick={() => editRecipe(recipe)}>{recipe.title}</li>
             
             })
         }
 
-        </ul>
+        </RecipeList>
             {/* {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
             }     */}
               

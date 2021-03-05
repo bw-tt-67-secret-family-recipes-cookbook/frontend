@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addRecipe } from "./../action/index";
+import { addRecipe, editRecipe } from "./../action/index";
+import axios from "axios";
 
 
 const initialState = {
@@ -10,12 +11,12 @@ const initialState = {
     ingredients:'',
     instructions:'',
     category:'',
-    user_id:57,
+    user_id:"",
  }
 
 const RecipeForm = () => {
     const [recipe, setRecipe] = useState(initialState);
-
+  
     const history = useHistory();
     const params = useParams();
     const dispatch = useDispatch();
@@ -23,8 +24,17 @@ const RecipeForm = () => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        dispatch(addRecipe(recipe))
-        history.push(`/${params.id}/recipe`)
+        if(history.location.pathname === `/edit-recipe/${params.id}/${recipe.recipe_id}`){
+            dispatch(editRecipe({...recipe,id: params.id}))
+            history.push(`/${params.id}/recipe`)
+        } else if (history.location.pathname === `/add-recipe/${params.id}`){
+            recipe.user_id = params.id
+            dispatch(addRecipe(params.id, recipe))
+            history.push(`/${params.id}/recipe`)
+        }
+        // dispatch(addRecipe(recipe))
+        // history.push(`/${params.id}/recipe`)
+        // console.log("here")
         console.log("here")
     } 
 
@@ -35,8 +45,23 @@ const RecipeForm = () => {
         })
     }
 
+    useEffect(() => {
+        if(history.location.pathname === `/edit-recipe/${params.id}/${params.cipe}`){
+           axios
+            .get(`https://tt67recipes.herokuapp.com/api/users/${params.id}/recipes/${params.cipe}`)
+            .then( res => {
+                console.log(res.data)
+                setRecipe(res.data)
+            })
+            .catch( err => {
+                console.log(err.response)
+            })
+        }
+    },[]) 
+
     return(
         <div className="recipeForm">
+            {console.log(params)}
             <h1>Add The Secret Recipe</h1>
             <form onSubmit={onSubmit}>
                 <label>Title:
@@ -49,7 +74,7 @@ const RecipeForm = () => {
                 <input type="text" name="instructions" value={recipe.instructions} onChange={handleChange}/></label>
                 <label>Category:
                 <input type="text" name="category" value={recipe.category} onChange={handleChange}/></label>
-                <button type="submit">Add Recipe</button>
+                <button>Add Recipe</button>
             </form>
 
         </div>
