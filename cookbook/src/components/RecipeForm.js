@@ -26,7 +26,7 @@ const Form = styled.form`
     height:150px;
 `
 const ImgOne = styled.img`
- background-image: url(https://www.incredibleegg.org/wp-content/uploads/2020/06/d-pear-spinach-egg-flatbread-2100x963-1.jpg);
+ background-image: url('https://www.incredibleegg.org/wp-content/uploads/2020/06/d-pear-spinach-egg-flatbread-2100x963-1.jpg');
  height: 60vh;
  width: 100%;
  background-position: center;
@@ -73,43 +73,64 @@ const Alink = styled.a`
 `
 
 
-const initialState = {
-    title:'',
-    source:'',
-    ingredients:'',
-    instructions:'',
-    category:'',
-    user_id:"",
- }
+
 
 const RecipeForm = () => {
-    const [recipe, setRecipe] = useState(initialState);
+
+    const params = useParams()
+
+    const initialState = {
+        title:'',
+        source:'',
+        ingredients:'',
+        instructions:'',
+        category:'',
+        user_id:params.id,
+        recipe_id:params.recipe
+     }
+
+     const initialAddState = {
+        title:'',
+        source:'',
+        ingredients:'',
+        instructions:'',
+        category:'',
+        user_id:params.id
+     }
+
+     const [recipe, setRecipe] = useState(initialState);
+     const [addRecipe, setAddRecipe] = useState(initialAddState)
   
     const history = useHistory();
-    const params = useParams();
     const dispatch = useDispatch();
 
 
     const onSubmit = (e) => {
         e.preventDefault()
-        if(history.location.pathname === `/edit-recipe/${params.id}/${recipe.recipe_id}`){
-            dispatch(editRecipe({...recipe,id: params.id}))
+        if(history.location.pathname === `/edit-recipe/${params.id}/${params.recipe}`){
+            console.log(recipe)
+            dispatch(editRecipe(recipe))
             history.push(`/${params.id}/recipe`)
+            console.log("here")
         } else if (history.location.pathname === `/add-recipe/${params.id}`){
             recipe.user_id = params.id
-            dispatch(addRecipe(params.id, recipe))
+            dispatch(addRecipe(params.id, addRecipe))
             history.push(`/${params.id}/recipe`)
+            console.log('add')
             
         }
         // dispatch(addRecipe(recipe))
         // history.push(`/${params.id}/recipe`)
         // console.log("here")
-        console.log("here")
     } 
 
     const handleChange = (e) => {
         setRecipe({
             ...recipe,
+            [e.target.name]:e.target.value
+        })
+        setAddRecipe({
+            ...addRecipe,
             [e.target.name]:e.target.value
         })
     }
@@ -134,7 +155,7 @@ const RecipeForm = () => {
             <Title>Add The Secret Recipe</Title>
             <Link to={`/${params.id}/recipe`}><Alink>Recipe Home</Alink></Link>
             <ImgOne></ImgOne>
-            <Form onSubmit={onSubmit}>
+            <Form>
                 <Label>Title:
                 <input type="text" name="title" value={recipe.title} onChange={handleChange}/></Label>
                 <Label>Source:
@@ -146,7 +167,7 @@ const RecipeForm = () => {
                 <Label>Category:
                 <input type="text" name="category" value={recipe.category} onChange={handleChange}/></Label>
                 
-               <SubButton>Add Recipe</SubButton>
+               <SubButton onClick={onSubmit}>Add Recipe</SubButton>
             </Form>
 
         </RecipeMaker>

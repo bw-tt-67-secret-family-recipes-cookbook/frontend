@@ -45,7 +45,7 @@ export const addRecipe = (id, newRecipe) => dispatch => {
 export const editRecipe = (newRecipe) => dispatch => {
     dispatch({type:EDIT_RECIPE_START});
     axiosWithAuth()
-    .put(`/api/users/:id/recipe/${newRecipe.recipe_id}`, newRecipe)
+    .put(`/api/users/${newRecipe.user_id}/recipes/${newRecipe.recipe_id}`, newRecipe)
     .then( res => {
         console.log(res)
         dispatch({type:EDIT_RECIPE_SUCCESS, payload:res.data});

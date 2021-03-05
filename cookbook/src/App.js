@@ -90,7 +90,7 @@ const App = () => {
                       path="/:id/recipe"
                       render={props => <Recipe {...props}/>}/>
                   <Route path='/add-recipe/:id' component={RecipeForm}/>
-                  <Route path='/edit-recipe/:id/:cipe' component={RecipeForm}/>
+                  <Route path='/edit-recipe/:id/:recipe' component={RecipeForm}/>
                 <Route exact path='/'>
                     <Home />
                 </Route>

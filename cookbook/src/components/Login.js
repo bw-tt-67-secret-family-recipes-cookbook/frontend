@@ -9,54 +9,7 @@ const initial = {
     password:'',
 }
 
-
-function Login(props){
-
-    const [credentials, setCredentials] = useState(initial);
-    const {values, submit, change, disabled, errors} = props
-
-
-        
-    
-    const onChange = evt => {
-    const { name, value } = evt.target;
-    setCredentials({
-        ...credentials,
-        [evt.target.name]: evt.target.value
-    });
-    change(name, value);
-    }
-
-    const history = useHistory()
-
-
-    const onSubmit = evt => {
-        evt.preventDefault()
-        axios
-
-            .post('https://tt67recipes.herokuapp.com/api/users/login', credentials)
-            .then( response =>{
-                console.log(response)
-                localStorage.setItem('token', response.data.token)
-                history.push(`/${response.data.data[0].user_id}/recipe`)
-
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
-        }
-
-
-    
-    const routeToRecipe = () => {
-        history.push('/recipe')
-    }
-    const routeToHome = () => {
-        history.push('/')
-    }
-    const Wrapper = styled.div`
+const Wrapper = styled.div`
         width: 100%;
         height: 100vh;
         display: flex;
@@ -67,7 +20,7 @@ function Login(props){
     `
 
     const Form = styled.form` 
-        background: url(https://www.tastymatters.com/wp-content/uploads/2017/06/cooking-with-copper-cookware-health-4.jpg) no-repeat center center fixed;
+        background: url('https://www.tastymatters.com/wp-content/uploads/2017/06/cooking-with-copper-cookware-health-4.jpg') no-repeat center center fixed;
         color: white;
         text-shadow: 1px 3px 3px brown;
         font-weight: bold; 
@@ -99,7 +52,7 @@ function Login(props){
         width: 50%;
         margin-left: 25%;
     `
-    const Login = styled.button`
+    const LoginButton = styled.button`
         margin: 2rem;
         padding: 1rem 2rem;
         background: #aa6639;
@@ -128,9 +81,52 @@ function Login(props){
         }
     `
 
+
+function Login(props){
+
+    const [credentials, setCredentials] = useState(initial);
+    const {values, submit, change, disabled, errors} = props
+
+
+        
+    
+    const onChange = evt => {
+    evt.preventDefault()
+    const { name, value } = evt.target;
+    setCredentials({
+        ...credentials,
+        [evt.target.name]: evt.target.value
+    });
+    change(name, value);
+    }
+
+    const history = useHistory()
+
+
+    const onSubmit = evt => {
+        evt.preventDefault()
+        axios
+
+            .post('https://tt67recipes.herokuapp.com/api/users/login', credentials)
+            .then( response =>{
+                console.log(response)
+                localStorage.setItem('token', response.data.token)
+                history.push(`/${response.data.data[0].user_id}/recipe`)
+
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        }
+    const routeToHome = () => {
+        history.push('/')
+    }
+
     return(
         <Wrapper>
-            <Form onSubmit={onSubmit}>
+            <Form>
                 <Middle>
                     <Title>Login</Title>
                     <SubTitle>Welcome Back!</SubTitle>
@@ -153,13 +149,12 @@ function Login(props){
                                 value={values.password}
                                 onChange={onChange}
                                 name='password'
-                                type='text'
+                                type='password'
                             />
                         </Label>
                     </Meat>
                     <ButtonWrapper>
-                        <Login onClick=
-                        {routeToRecipe}>Login</Login>
+                        <LoginButton onClick={onSubmit}>Login</LoginButton>
                         <Home onClick=
                         {routeToHome}>Home</Home>
                     </ButtonWrapper>

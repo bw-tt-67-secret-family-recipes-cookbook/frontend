@@ -11,7 +11,7 @@ const Title = styled.h1`
 text-align:center;
 `
 const ImgOne = styled.img`
-  background-image: url(https://static01.nyt.com/images/2018/10/23/dining/as-white-bean-tomato/as-white-bean-tomato-superJumbo-v2.jpg);
+  background-image: url('https://static01.nyt.com/images/2018/10/23/dining/as-white-bean-tomato/as-white-bean-tomato-superJumbo-v2.jpg');
   height: 40vh;
   width: 100%;
   background-position: center;
