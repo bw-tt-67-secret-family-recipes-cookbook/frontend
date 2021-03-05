@@ -9,34 +9,7 @@ const initialValues = {
   }
 
 
-
-function SignupForm(props) {
-    const [credentials, setCredentials] = useState(initialValues)
-    const {values, submit, change, disabled, errors} = props
-
-    const onChange = evt => {
-        const {name, value } = evt.target;
-        setCredentials({
-            ...credentials,
-            [evt.target.name]: evt.target.value,
-        });
-        change(name, value);
-    }
-    
-    // const onChange = evt => {
-    //     const { name, value } = evt.target
-    //     change(name, value) 
-    // }
-
-    const routeToLogin = () => {
-        console.log(history);
-        history.push('/login')
-    }
-    const routeToHome = () => {
-        console.log(history);
-        history.push('/')
-    }
-    const Wrapper = styled.div`
+  const Wrapper = styled.div`
         width: 100%;
         height: 100vh;
         display: flex;
@@ -45,7 +18,7 @@ function SignupForm(props) {
         background: linear-gradient(to left, #aa6639, white);
     `
     const Form = styled.form`
-        background: url(https://videohive.img.customer.envatousercontent.com/files/2e6a7460-1df5-4651-9ac2-622670174f98/inline_image_preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&max-h=8000&max-w=590&s=a53bf67b7db29ada57d832a1f308ba3c) no-repeat center center fixed;
+        background: url('https://videohive.img.customer.envatousercontent.com/files/2e6a7460-1df5-4651-9ac2-622670174f98/inline_image_preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&max-h=8000&max-w=590&s=a53bf67b7db29ada57d832a1f308ba3c') no-repeat center center fixed;
         color: white;
         text-shadow: 1px 3px 3px brown;
         font-weight: bold; 
@@ -108,6 +81,36 @@ function SignupForm(props) {
         }
     `
 
+
+function SignupForm(props) {
+    const [credentials, setCredentials] = useState(initialValues)
+    const {values, submit, change, disabled, errors} = props
+
+    const onChange = evt => {
+        evt.preventDefault()
+        const {name, value } = evt.target;
+        setCredentials({
+            ...credentials,
+            [evt.target.name]: evt.target.value,
+        });
+        change(name, value);
+    }
+    
+    // const onChange = evt => {
+    //     const { name, value } = evt.target
+    //     change(name, value) 
+    // }
+
+    const routeToLogin = () => {
+        console.log(history);
+        history.push('/login')
+    }
+    const routeToHome = () => {
+        console.log(history);
+        history.push('/')
+    }
+
+
    
     const history = useHistory()
     const routeToMain = () => {
@@ -124,9 +127,6 @@ function SignupForm(props) {
                 console.log(response.data)
                 submit();
                 routeToMain();
-                
-
-
             })
             .catch(error => {
                 console.log(error)

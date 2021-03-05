@@ -99,7 +99,7 @@ const RecipeForm = () => {
      }
 
      const [recipe, setRecipe] = useState(initialState);
-     const [addRecipe, setAddRecipe] = useState(initialAddState)
+     const [addRecipeValues, setAddRecipeValues] = useState(initialAddState)
   
     const history = useHistory();
     const dispatch = useDispatch();
@@ -113,8 +113,9 @@ const RecipeForm = () => {
             history.push(`/${params.id}/recipe`)
             console.log("here")
         } else if (history.location.pathname === `/add-recipe/${params.id}`){
+            console.log(addRecipeValues)
             recipe.user_id = params.id
-            dispatch(addRecipe(params.id, addRecipe))
+            dispatch(addRecipe(params.id, addRecipeValues))
             history.push(`/${params.id}/recipe`)
             console.log('add')
             
@@ -129,8 +130,8 @@ const RecipeForm = () => {
             ...recipe,
             [e.target.name]:e.target.value
         })
-        setAddRecipe({
-            ...addRecipe,
+        setAddRecipeValues({
+            ...addRecipeValues,
             [e.target.name]:e.target.value
         })
     }
