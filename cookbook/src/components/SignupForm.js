@@ -108,7 +108,7 @@ function SignupForm(props) {
 
             <div>{errors.username}</div>
             <div>{errors.password}</div>
-<Meat>
+        <Meat>
             <Label>Username
                 <Input
                     value={values.username}

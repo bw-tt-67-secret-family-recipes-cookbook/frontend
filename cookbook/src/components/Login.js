@@ -125,7 +125,7 @@ function Login(props){
                     type='text'
                 />
             </Label>
-            </Meat>
+        </Meat>
             <ButtonWrapper>
             <Login onClick=
             {routeToRecipe}>Login</Login>
