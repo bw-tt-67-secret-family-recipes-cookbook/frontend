@@ -37,7 +37,7 @@ export const reducer = (state = initialState, action) => {
             return({
                 ...state,
                 recipe:action.payload,
-                userRecipe:[...state.userRecipe]
+                userRecipe:[...state.userRecipe, action.payload]
             })
         case(HANDLE_ERROR):
             return({

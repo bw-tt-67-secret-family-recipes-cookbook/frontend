@@ -65,7 +65,7 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
 
 
 
-    // const editRecipe = recipe => {
+    // const changeRecipe = recipe => {
     //     setEditing(true);
     //     setRecipeToEdit(recipe);
     // }
@@ -131,20 +131,20 @@ const Recipe = ({getRecipes, editRecipe, userRecipe}) => {
          
         <h1>Recipes</h1>
 
-        <Search className="searchbar" userRecipe={userRecipe}/>
+        {/* <Search userRecipe={userRecipe}/> */}
         <RecipeForm/>
         <ul>
 
         {
             userRecipe.map(recipe => {
-                <li className="recipe" onClick={() => editRecipe(recipe)}>{recipe.title}</li>
+                return <li className="recipe" onClick={() => editRecipe(recipe)}>{recipe.title}</li>
             
             })
         }
 
         </ul>
-            {/* {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
-            }     */}
+            {  editing && <EditMenu recipeToEdit={recipeToEdit} setEditing={setEditing} setRecipeToEdit={setRecipeToEdit}/>
+            }    
               
         </div>)
 }
