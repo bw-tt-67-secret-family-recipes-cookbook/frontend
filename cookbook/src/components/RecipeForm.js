@@ -38,8 +38,16 @@ const RecipeForm = () => {
         <div className="recipeForm">
             <h1>Add The Secret Recipe</h1>
             <form onSubmit={onSubmit}>
-                <label>Title:</label>
-                <input type="text" name="title" value={recipe.title} onChange={handleChange}/>
+                <label>Title:
+                <input type="text" name="title" value={recipe.title} onChange={handleChange}/></label>
+                <label>Source:
+                <input type="text" name="source" value={recipe.source} onChange={handleChange}/></label>
+                <label>Ingredients:
+                <input type="text" name="ingredients" value={recipe.ingredients} onChange={handleChange}/></label>
+                <label>Instructions:
+                <input type="text" name="instructions" value={recipe.instructions} onChange={handleChange}/></label>
+                <label>Category:
+                <input type="text" name="category" value={recipe.category} onChange={handleChange}/></label>
                 <button type="submit">Add Recipe</button>
             </form>
 
