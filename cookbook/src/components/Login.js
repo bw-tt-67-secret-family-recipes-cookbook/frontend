@@ -29,6 +29,7 @@ function Login(props){
 
     const history = useHistory()
 
+
     const onSubmit = evt => {
         evt.preventDefault()
         axios
@@ -49,8 +50,12 @@ function Login(props){
 
 
     
-      
-
+    const routeToRecipe = () => {
+        history.push('/recipe')
+    }
+    const routeToHome = () => {
+        history.push('/')
+    }
     const Wrapper = styled.div`
         width: 100%;
         height: 100vh;
@@ -125,42 +130,42 @@ function Login(props){
 
     return(
         <Wrapper>
-        <Form onSubmit={onSubmit}>
-            <Middle>
-            <Title>Login</Title>
-            <SubTitle>Welcome Back!</SubTitle>
+            <Form onSubmit={onSubmit}>
+                <Middle>
+                    <Title>Login</Title>
+                    <SubTitle>Welcome Back!</SubTitle>
 
-            <div>{errors.username}</div>
-            <div>{errors.password}</div>
-        <Meat>
+                    <div>{errors.username}</div>
+                    <div>{errors.password}</div>
+                    <Meat>
 
-            <Label>Username
-                <Input
-                    value={values.username}
-                    onChange={onChange}
-                    name='username'
-                    type='text'
-                />
-            </Label>
-            
-            <Label>Password
-                <Input
-                    value={values.password}
-                    onChange={onChange}
-                    name='password'
-                    type='text'
-                />
-            </Label>
-        </Meat>
-            <ButtonWrapper>
-            <Login onClick=
-            {routeToRecipe}>Login</Login>
-            <Home onClick=
-            {routeToHome}>Home</Home>
-            </ButtonWrapper>
-            
-            </Middle>    
-        </Form>
+                        <Label>Username
+                            <Input
+                                value={values.username}
+                                onChange={onChange}
+                                name='username'
+                                type='text'
+                            />
+                        </Label>
+                    
+                        <Label>Password
+                            <Input
+                                value={values.password}
+                                onChange={onChange}
+                                name='password'
+                                type='text'
+                            />
+                        </Label>
+                    </Meat>
+                    <ButtonWrapper>
+                        <Login onClick=
+                        {routeToRecipe}>Login</Login>
+                        <Home onClick=
+                        {routeToHome}>Home</Home>
+                    </ButtonWrapper>
+                
+                </Middle>    
+            </Form>
         </Wrapper>
     )
 
